@@ -1,1 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instituto Brisanet | Pitch Edital Itaú Viver Mais</title>
 
+    <!-- Fontes Premium: Figtree -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS para o Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        /* Variáveis de Tema (Modo Escuro Padrão) */
+        :root {
+            --brand-orange: #FF5A00;
+            --brand-orange-hover: #E04F00;
+            
+            --bg-primary: #051622;
+            --bg-secondary: #092233;
+            --bg-tertiary: #0c2d44;
+            
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(9, 34, 51, 0.7);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            
+            --overlay-grad: linear-gradient(to right, rgba(5,22,34,0.95) 0%, rgba(5,22,34,0.6) 100%);
+        }
+
+        /* Modo Claro */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            
+            --border-color: rgba(0, 0, 0, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            
+            --overlay-grad: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 100%);
+        }
+
+        /* Reset e Base (Mobile First) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ocultar barra de rolagem durante o splash screen */
+        body.no-scroll { overflow: hidden; }
+
+        h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
+        
+        .text-orange { color: var(--brand-orange); }
+
+        .container {
+            width: 100%; max-width: 1200px;
+            margin: 0 auto; padding: 0 20px;
+        }
+
+        .section-padding { padding: 60px 0; position: relative; z-index: 2; }
+        @media (min-width: 768px) { .section-padding { padding: 100px 0; } }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #051622; z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #splash-screen.hide { opacity: 0; visibility: hidden; }
+        
+        .splash-logo {
+            width: 80%; max-width: 400px; /* Logo Grande */
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* Folhas Caindo (Otimizado com CSS Puro para não travar) */
+        .leaves-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .css-leaf {
+            position: absolute; top: -50px;
+            color: var(--brand-orange); opacity: 0.15;
+            font-size: 24px;
+            /* Usando transform para aceleração de hardware (suave no mobile) */
+            animation: fall linear infinite;
+        }
+        [data-theme="light"] .css-leaf { opacity: 0.08; }
+
+        @keyframes fall {
+            0% { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+            100% { transform: translate3d(0, 110vh, 0) rotate(360deg); }
+        }
+
+        /* Posições, tamanhos e durações randômicas fixadas no CSS */
+        .l1 { left: 10%; font-size: 20px; animation-duration: 15s; animation-delay: 0s; }
+        .l2 { left: 25%; font-size: 30px; animation-duration: 22s; animation-delay: -5s; }
+        .l3 { left: 40%; font-size: 18px; animation-duration: 18s; animation-delay: -2s; }
+        .l4 { left: 60%; font-size: 25px; animation-duration: 25s; animation-delay: -10s; }
+        .l5 { left: 75%; font-size: 22px; animation-duration: 19s; animation-delay: -7s; }
+        .l6 { left: 90%; font-size: 35px; animation-duration: 28s; animation-delay: -1s; }
+        .l7 { left: 15%; font-size: 28px; animation-duration: 21s; animation-delay: -12s; }
+        .l8 { left: 50%; font-size: 24px; animation-duration: 17s; animation-delay: -8s; }
+        .l9 { left: 85%; font-size: 19px; animation-duration: 24s; animation-delay: -4s; }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 15px 0; z-index: 100;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        header.scrolled {
+            background-color: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Logos Maiores */
+        .logo-img { height: 60px; object-fit: contain; transition: height 0.3s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        @media (min-width: 768px) { .logo-img { height: 75px; } }
+        header.scrolled .logo-img { height: 50px; }
+        
+        .theme-toggle {
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            color: var(--text-main); font-size: 1.2rem;
+            cursor: pointer; width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .theme-toggle:hover { background-color: var(--brand-orange); color: #fff; border-color: var(--brand-orange); }
+
+        /* Hero Slider */
+        .hero-slider { height: 100vh; min-height: 500px; width: 100%; position: relative; z-index: 2; }
+        .swiper-slide { position: relative; display: flex; align-items: center; background-size: cover; background-position: center; }
+        .hero-overlay { position: absolute; inset: 0; background: var(--overlay-grad); z-index: 1; }
+        
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin-top: 60px;}
+        .hero-title { font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 20px; line-height: 1.1; }
+        .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text-muted); font-weight: 400; margin-bottom: 25px; }
+        
+        .badge {
+            display: inline-block; padding: 6px 14px; background-color: rgba(255, 90, 0, 0.15);
+            border: 1px solid var(--brand-orange); color: var(--brand-orange);
+            font-weight: 700; font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 15px; border-radius: 30px;
+        }
+
+        /* Layouts Compartilhados */
+        .section-title { font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 15px; }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; }
+
+        /* Grid de Cartões (O Desafio) */
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 30px; } }
+        
+        .card {
+            background: var(--card-bg); padding: 30px 20px;
+            border-radius: 12px; border: 1px solid var(--border-color);
+            text-align: center; box-shadow: var(--card-shadow);
+        }
+        .card-icon { font-size: 2.5rem; color: var(--brand-orange); margin-bottom: 15px; }
+        .card-title { font-size: 1.4rem; margin-bottom: 10px; text-transform: uppercase; }
+        .card-text { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Comparativo (Novo Paradigma) */
+        .compare-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);}
+        .compare-table th, .compare-table td { padding: 15px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .compare-table th { background: var(--bg-tertiary); font-size: 1.1rem; }
+        .compare-table .bad { color: #e53e3e; font-weight: 600; }
+        .compare-table .good { color: #38a169; font-weight: 600; }
+        @media (max-width: 600px) {
+            .compare-table th, .compare-table td { padding: 10px 5px; font-size: 0.85rem; }
+        }
+
+        /* Split Layout (Texto + Imagem) */
+        .split-layout { display: flex; flex-direction: column; gap: 30px; align-items: center; }
+        @media (min-width: 992px) { 
+            .split-layout { flex-direction: row; gap: 60px; } 
+            .split-layout.reverse { flex-direction: row-reverse; }
+        }
+        .split-content { flex: 1; width: 100%; }
+        .split-image-container { flex: 1; width: 100%; position: relative; }
+        
+        .split-image {
+            width: 100%; height: auto; border-radius: 12px;
+            box-shadow: var(--card-shadow); border: 1px solid var(--border-color);
+        }
+
+        /* Lista de Features */
+        .feature-list { list-style: none; margin-top: 20px; }
+        .feature-item { 
+            display: flex; align-items: flex-start; gap: 15px; 
+            margin-bottom: 20px; padding: 20px; 
+            background-color: var(--card-bg); border: 1px solid var(--border-color); 
+            border-radius: 8px; box-shadow: var(--card-shadow);
+        }
+        .feature-icon { color: var(--brand-orange); font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+        .feature-text h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .feature-text p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Impacto (Métricas) */
+        .impact-section { background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); }
+        .metric-item { padding: 30px 20px; background: var(--bg-primary); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); text-align: center; }
+        .metric-value { font-size: 3.5rem; font-weight: 900; color: var(--text-main); line-height: 1; margin-bottom: 5px; }
+        @media (min-width: 768px) { .metric-value { font-size: 5rem; } }
+        .metric-label { font-size: 1.1rem; font-weight: 800; color: var(--brand-orange); margin-bottom: 10px; text-transform: uppercase; }
+        .metric-desc { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Footer */
+        footer { background-color: #030c14; padding: 50px 0 30px; border-top: 4px solid var(--brand-orange); position: relative; z-index: 2;}
+        [data-theme="light"] footer { background-color: #e2e8f0; }
+        
+        .footer-logos { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px; margin-bottom: 40px; }
+        @media (min-width: 768px) { .footer-logos { flex-direction: row; gap: 80px; } }
+        
+        /* Logos Gigantes no Footer */
+        .footer-logos img { max-height: 120px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+        
+        .footer-copy { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 30px; }
+
+        /* Utilitário para animações GSAP no Mobile */
+        .gs-reveal { opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body class="no-scroll">
+
+    <!-- Splash Screen Inicial -->
+    <div id="splash-screen">
+        <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/Logo%20instituto%20brisanet.png" alt="Instituto Brisanet Loading" class="splash-logo">
+    </div>
+
+    <!-- Fundo de Folhas CSS Puro (Performance Mobile) -->
+    <div class="leaves-bg">
+        <i class="fa-solid fa-leaf css-leaf l1"></i>
+        <i class="fa-solid fa-leaf css-leaf l2"></i>
+        <i class="fa-solid fa-leaf css-leaf l3"></i>
+        <i class="fa-solid fa-leaf css-leaf l4"></i>
+        <i class="fa-solid fa-seedling css-leaf l5"></i>
+        <i class="fa-solid fa-leaf css-leaf l6"></i>
+        <i class="fa-solid fa-leaf css-leaf l7"></i>
+        <i class="fa-solid fa-leaf css-leaf l8"></i>
+        <i class="fa-solid fa-seedling css-leaf l9"></i>
+    </div>
+
+    <!-- Header -->
+    <header id="navbar">
+        <div class="container nav-wrapper">
+            <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/Logo%20instituto%20brisanet.png" alt="Instituto Brisanet" class="logo-img">
+            <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero / Slider -->
+    <section class="hero-slider swiper" id="heroSwiper">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide" style="background-image: url('https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/unnamed%20(5).png');">
+                <div class="hero-overlay"></div>
+                <div class="container">
+                    <div class="hero-content">
+                        <span class="badge">Edital Itaú Viver Mais 2026</span>
+                        <h1 class="hero-title">A infraestrutura é tecnológica.<br><span class="text-orange">O impacto é humano.</span></h1>
+                        <p class="hero-subtitle">O Instituto Brisanet tem a tecnologia e a execução para transformar o trabalho no semiárido.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide" style="background-image: url('https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/unnamed%20(3).png');">
+                <div class="hero-overlay"></div>
+                <div class="container">
+                    <div class="hero-content">
+                        <span class="badge">Inclusão 60+</span>
+                        <h1 class="hero-title">Semeando autonomia para quem<br><span class="text-orange">construiu nosso passado.</span></h1>
+                        <p class="hero-subtitle">Estufa Agrícola Escola de Cultivo Protegido e Inclusão Produtiva em São Miguel - RN.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Desafio -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="gs-reveal" style="text-align: center; margin-bottom: 40px;">
+                <h2 class="section-title">O ambiente exclui a pessoa idosa <br><span class="text-orange">do ciclo produtivo.</span></h2>
+            </div>
+            
+            <div class="grid-3">
+                <div class="card gs-reveal">
+                    <i class="fa-solid fa-sun card-icon"></i>
+                    <h3 class="card-title">Sol a Pino</h3>
+                    <p class="card-text">A agricultura tradicional exige esforço físico extremo, curvatura da coluna e exposição a altas temperaturas.</p>
+                </div>
+                <div class="card gs-reveal">
+                    <i class="fa-solid fa-droplet-slash card-icon"></i>
+                    <h3 class="card-title">Falta D'água</h3>
+                    <p class="card-text">O semiárido sofre com a insegurança hídrica constante, tornando o plantio tradicional inviável e frustrante.</p>
+                </div>
+                <div class="card gs-reveal">
+                    <i class="fa-solid fa-user-xmark card-icon"></i>
+                    <h3 class="card-title">O Isolamento</h3>
+                    <p class="card-text">Sem condições de trabalho ergonômico, o idoso é afastado, gerando perda de autonomia e baixa renda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Novo Paradigma -->
+    <section class="section-padding" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="gs-reveal" style="text-align: center;">
+                <h2 class="section-title">O Novo Paradigma <span class="text-orange">do Trabalho 60+</span></h2>
+                
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Fator</th>
+                            <th>Agricultura Tradicional</th>
+                            <th class="text-orange">Semeando Autonomia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Posição de Trabalho</strong></td>
+                            <td class="bad">Agachado, dano lombar.</td>
+                            <td class="good">Em pé, ergonômico (1,10m).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clima</strong></td>
+                            <td class="bad">Exposição ao sol forte.</td>
+                            <td class="good">Conforto térmico controlado.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uso de Água</strong></td>
+                            <td class="bad">Desperdício e escassez.</td>
+                            <td class="good">Recirculação (85% de economia).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Impacto Social</strong></td>
+                            <td class="bad">Exclusão e dependência.</td>
+                            <td class="good">Inclusão produtiva e renda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- A Tecnologia (Ergonomia) -->
+    <section class="section-padding">
+        <div class="container split-layout">
+            <div class="split-content gs-reveal">
+                <h2 class="section-title">A tecnologia se adapta ao idoso <span class="text-orange">(e não o contrário).</span></h2>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <i class="fa-solid fa-person-cane feature-icon"></i>
+                        <div class="feature-text">
+                            <h4>1. Ergonomia Total</h4>
+                            <p>Calhas Suspensas a 1,10m. Fim do esforço lombar. Cultivo 100% em pé.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fa-solid fa-shield-halved feature-icon"></i>
+                        <div class="feature-text">
+                            <h4>2. Segurança e Acesso</h4>
+                            <p>Piso tátil e concreto antiderrapante com rampas.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fa-solid fa-leaf feature-icon"></i>
+                        <div class="feature-text">
+                            <h4>3. Sustentabilidade & Conforto</h4>
+                            <p>Economia de 85% de água (Hidroponia) e climatização inteligente que reduz as temperaturas.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="split-image-container gs-reveal">
+                <!-- Imagem exata solicitada -->
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/unnamed%20(2).png" alt="Esquema Tecnológico" class="split-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Franquia Social -->
+    <section class="section-padding" style="background-color: var(--bg-secondary);">
+        <div class="container split-layout reverse">
+            <div class="split-content gs-reveal">
+                <h2 class="section-title">Sustentabilidade Financeira: <br><span class="text-orange">O Ciclo da Franquia Social</span></h2>
+                <ul class="feature-list">
+                    <li class="feature-item" style="border-left: 4px solid #D95C27;">
+                        <div class="feature-text">
+                            <h4 style="color: #D95C27;">1. Aprender (Estufa-Escola)</h4>
+                            <p>3 meses de capacitação prática e andragógica.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item" style="border-left: 4px solid #4CAF50;">
+                        <div class="feature-text">
+                            <h4 style="color: #4CAF50;">2. Produzir (Cooperativa Social)</h4>
+                            <p>Venda de hortaliças para mercados, feiras e merenda escolar (PNAE).</p>
+                        </div>
+                    </li>
+                    <li class="feature-item" style="border-left: 4px solid #03A9F4;">
+                        <div class="feature-text">
+                            <h4 style="color: #03A9F4;">3. Expandir (Microfranquia)</h4>
+                            <p>Replicação do modelo em kits residenciais para produtores 60+ independentes.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="split-image-container gs-reveal">
+                <!-- Imagem exata solicitada -->
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/unnamed%20(4).png" alt="Ciclo da Franquia" class="split-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentoria Reversa -->
+    <section class="section-padding">
+        <div class="container split-layout">
+            <div class="split-content gs-reveal">
+                <span class="badge">Mentoria Reversa</span>
+                <h2 class="section-title">Conectando gerações e <span class="text-orange">garantindo diversidade.</span></h2>
+                <p class="section-subtitle">A Sabedoria da Terra (idosos ensinam o plantio) encontra a Fluência Digital (jovens aprendizes ensinam o uso de tablets).</p>
+                
+                <div class="grid-3" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="card" style="padding: 15px;">
+                        <h3 class="text-orange" style="font-size: 2rem;">55%</h3>
+                        <p style="font-size: 0.9rem; font-weight: bold;">Mulheres Idosas</p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Prioridade chefes de família.</p>
+                    </div>
+                    <div class="card" style="padding: 15px;">
+                        <h3 class="text-orange" style="font-size: 2rem;">60%</h3>
+                        <p style="font-size: 0.9rem; font-weight: bold;">Preta ou Parda</p>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Zonas rurais isoladas (Busca CRAS).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="split-image-container gs-reveal">
+                <!-- Imagem exata solicitada -->
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/unnamed.png" alt="Equipe de Idosos e Jovens" class="split-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Métricas de Impacto -->
+    <section class="section-padding impact-section">
+        <div class="container">
+            <div class="gs-reveal" style="text-align: center; margin-bottom: 40px;">
+                <h2 class="section-title">O Investimento e o <br><span class="text-orange">Retorno Social Garantido</span></h2>
+            </div>
+
+            <div class="grid-3">
+                <div class="metric-item gs-reveal">
+                    <div class="metric-value"><span class="counter" data-target="85">0</span>%</div>
+                    <div class="metric-label">Retenção</div>
+                    <div class="metric-desc">Taxa de formação garantida (mínimo de 136 idosos diplomados).</div>
+                </div>
+                <div class="metric-item gs-reveal">
+                    <div class="metric-value"><span class="counter" data-target="75">0</span>%</div>
+                    <div class="metric-label">Saúde Mental</div>
+                    <div class="metric-desc">Relato de melhora na autoestima e redução do isolamento.</div>
+                </div>
+                <div class="metric-item gs-reveal">
+                    <div class="metric-value"><span class="counter" data-target="60">0</span>%</div>
+                    <div class="metric-label">Renda Ativa</div>
+                    <div class="metric-desc">Inserção comercial real via cooperativa ou franquia caseira.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer com Logos Gigantes -->
+    <footer>
+        <div class="container">
+            <div class="footer-logos gs-reveal">
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/Logo%20instituto%20brisanet.png" alt="Instituto Brisanet">
+                <img src="https://raw.githubusercontent.com/gilneilaurindo/institutobrisanet/main/Logo%20Prefeitura%20de%20S%C3%A3o%20Miguel.png" alt="Prefeitura de São Miguel">
+            </div>
+            <p class="footer-copy">Projeto Semeando Autonomia • Edital Itaú Viver Mais 2026 • Categoria C</p>
+        </div>
+    </footer>
+
+    <!-- Scripts (Versões Minificadas e otimizadas) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Splash Screen Logic
+            const splash = document.getElementById('splash-screen');
+            const body = document.body;
+            
+            // Força a remoção após 2 segundos, revelando o site
+            setTimeout(() => {
+                splash.classList.add('hide');
+                body.classList.remove('no-scroll');
+                
+                // Inicializa as animações de scroll apenas depois que o splash sair
+                initScrollAnimations();
+            }, 2000);
+
+            // 2. Theme Toggle Logic
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlTag = document.documentElement;
+            const icon = themeToggle.querySelector('i');
+            icon.classList.add('fa-sun'); // Default dark mode needs sun icon to switch to light
+
+            themeToggle.addEventListener('click', () => {
+                let currentTheme = htmlTag.getAttribute('data-theme');
+                let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlTag.setAttribute('data-theme', newTheme);
+                
+                // Animação no botão
+                gsap.to(icon, { rotation: "+=360", duration: 0.4, ease: "power2.out" });
+                
+                if(newTheme === 'light') {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                } else {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
+
+            // 3. Navbar Scrolled Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 4. Swiper Initialization
+            const swiper = new Swiper('#heroSwiper', {
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                autoplay: { delay: 5000, disableOnInteraction: false },
+                speed: 1000,
+                loop: true,
+                allowTouchMove: true // Permitir touch no mobile
+            });
+
+            // 5. GSAP Animations (Encapusulado para rodar pós-splash)
+            function initScrollAnimations() {
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Otimização para Mobile: Reduzir complexidade das animações
+                const isMobile = window.innerWidth < 768;
+                const revealDistance = isMobile ? 30 : 50;
+
+                const revealElements = document.querySelectorAll('.gs-reveal');
+                
+                // Evita problemas de piscada removendo a visibilidade oculta e aplicando fade
+                revealElements.forEach((elem) => {
+                    elem.style.visibility = "visible"; 
+                    
+                    gsap.fromTo(elem, 
+                        { y: revealDistance, opacity: 0 }, 
+                        {
+                            y: 0, opacity: 1,
+                            duration: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: elem,
+                                start: "top 90%", // Gatilho um pouco mais cedo no mobile
+                                toggleActions: "play none none none" 
+                            }
+                        }
+                    );
+                });
+
+                // 6. Contadores de Impacto (Animados de forma fluida)
+                const counters = document.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    
+                    ScrollTrigger.create({
+                        trigger: counter,
+                        start: "top 90%",
+                        once: true,
+                        onEnter: () => {
+                            gsap.to(counter, {
+                                innerHTML: target,
+                                duration: 2.5,
+                                ease: "power2.out",
+                                snap: { innerHTML: 1 },
+                                onUpdate: function() {
+                                    // Mantém renderização inteira
+                                    counter.innerHTML = Math.round(this.targets()[0].innerHTML);
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
